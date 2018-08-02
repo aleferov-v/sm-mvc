@@ -2,6 +2,7 @@ package com.springmvcdemo;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -10,8 +11,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class WelcomeController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String welcome(Model model) {
-		model.addAttribute("message", "Hello Spring MVC Framework!");
-		return "welcome-page";
+	public String newUser(Model model) {
+		model.addAttribute("user", new User());
+		return "userForm";
+	}
+
+	@RequestMapping(value = "/addUser", method=RequestMethod.POST)
+	public String addUser(@ModelAttribute("user") User user) {
+		return "showUser";
 	}
 }
